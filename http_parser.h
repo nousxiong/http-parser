@@ -56,7 +56,7 @@ typedef unsigned __int64 uint64_t;
 #endif
 #else
 #include <stdint.h>
-#endif
+#endif 
 
 /* Compile with -DHTTP_PARSER_STRICT=0 to make less checks, but run
  * faster
@@ -352,4 +352,12 @@ int http_body_is_final(const http_parser *parser);
 #ifdef __cplusplus
 }
 #endif
+
+#ifdef HTTP_HEADER_ONLY
+# define HTTP_FUNC inline
+# include "http_parser.cpp"
+#else
+# define HTTP_FUNC 
+#endif
+
 #endif

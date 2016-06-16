@@ -623,6 +623,7 @@ parse_url_char(enum state s, const char ch)
   return s_dead;
 }
 
+HTTP_FUNC 
 size_t http_parser_execute (http_parser *parser,
                             const http_parser_settings *settings,
                             const char *data,
@@ -2085,7 +2086,7 @@ error:
 
 
 /* Does the parser need to see an EOF to find the end of the message? */
-int
+HTTP_FUNC int
 http_message_needs_eof (const http_parser *parser)
 {
   if (parser->type == HTTP_REQUEST) {
@@ -2107,7 +2108,7 @@ http_message_needs_eof (const http_parser *parser)
   return 1;
 }
 
-
+HTTP_FUNC 
 int
 http_should_keep_alive (const http_parser *parser)
 {
@@ -2126,14 +2127,14 @@ http_should_keep_alive (const http_parser *parser)
   return !http_message_needs_eof(parser);
 }
 
-
+HTTP_FUNC 
 const char *
 http_method_str (enum http_method m)
 {
   return ELEM_AT(method_strings, m, "<unknown>");
 }
 
-
+HTTP_FUNC 
 void
 http_parser_init (http_parser *parser, enum http_parser_type t)
 {
@@ -2145,12 +2146,14 @@ http_parser_init (http_parser *parser, enum http_parser_type t)
   parser->http_errno = HPE_OK;
 }
 
+HTTP_FUNC 
 void
 http_parser_settings_init(http_parser_settings *settings)
 {
   memset(settings, 0, sizeof(*settings));
 }
 
+HTTP_FUNC 
 const char *
 http_errno_name(enum http_errno err) {
   assert(((size_t) err) <
@@ -2158,6 +2161,7 @@ http_errno_name(enum http_errno err) {
   return http_strerror_tab[err].name;
 }
 
+HTTP_FUNC 
 const char *
 http_errno_description(enum http_errno err) {
   assert(((size_t) err) <
@@ -2303,6 +2307,7 @@ http_parse_host(const char * buf, struct http_parser_url *u, int found_at) {
   return 0;
 }
 
+HTTP_FUNC 
 int
 http_parser_parse_url(const char *buf, size_t buflen, int is_connect,
                       struct http_parser_url *u)
@@ -2402,6 +2407,7 @@ http_parser_parse_url(const char *buf, size_t buflen, int is_connect,
   return 0;
 }
 
+HTTP_FUNC 
 void
 http_parser_pause(http_parser *parser, int paused) {
   /* Users should only be pausing/unpausing a parser that is not in an error
@@ -2416,11 +2422,13 @@ http_parser_pause(http_parser *parser, int paused) {
   }
 }
 
+HTTP_FUNC 
 int
 http_body_is_final(const struct http_parser *parser) {
     return parser->state == s_message_done;
 }
 
+HTTP_FUNC 
 unsigned long
 http_parser_version(void) {
   return HTTP_PARSER_VERSION_MAJOR * 0x10000 |
