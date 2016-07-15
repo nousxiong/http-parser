@@ -10,6 +10,8 @@ Changes
 * http_parser.h remove all integer typedef, instead stdint.hpp
 * add stdint.hpp for fit vc <= 11
 * add HTTP_HEADER_ONLY macro for making lib to header only, optional
+* all http_parser.cpp macros add HTTP_PARSER_ prefix
+* some http_parser.cpp enum and static vars add http_parser_ prefix
 
 Usage
 --------
